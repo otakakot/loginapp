@@ -1,0 +1,20 @@
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: .Dockerfile
+      args:
+        - workdir=cmd/app/
+    ports:
+      - 8080:8080
+    environment:
+      ENV: local
+      PORT: 8080
+      FIREBASE_API_KEY: ${FIREBASE_API_KEY}
+      SUPABASE_PROJECT_REFERENCE: ${SUPABASE_PROJECT_REFERENCE}
+      SUPABASE_API_KEY: ${SUPABASE_API_KEY}
+      POCKETBASE_URL: ${POCKETBASE_URL:-http://localhost:5050}
+    volumes:
+      - ./:/app
+    restart: always
